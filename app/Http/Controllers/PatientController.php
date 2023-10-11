@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Doctor;
 use App\Models\Patient;
-use App\Models\Appointment;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PatientController extends Controller
 {
@@ -17,9 +15,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
         $patients = Patient::all();
-        return view('patients.index', compact('patients'));
+        return Inertia::render('Patients/Index', ['patients' => $patients]);
     }
 
     /**
@@ -29,8 +26,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-        //
-        return view('patients.create');
+        return Inertia::render('Patients/Create');
     }
 
     /**
@@ -41,7 +37,6 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:patients',
@@ -63,9 +58,8 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        //
         $patient = Patient::findOrFail($id);
-        return view('patients.show', compact('patient'));
+        return Inertia::render('Patients/Show', ['patient' => $patient]);
     }
 
     /**
@@ -76,9 +70,8 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        //
         $patient = Patient::findOrFail($id);
-        return view('patients.edit', compact('patient'));
+        return Inertia::render('Patients/Edit', ['patient' => $patient]);
     }
 
     /**
@@ -90,7 +83,6 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:patients,email,' . $id,
@@ -113,7 +105,6 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        //
         $patient = Patient::findOrFail($id);
         $patient->delete();
 

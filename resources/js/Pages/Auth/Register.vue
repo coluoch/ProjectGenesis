@@ -14,7 +14,7 @@ const form = useForm({
     password: '',
     password_confirmation: '',
     terms: false,
-    role: 'doctor',  // default it to doctor
+    role: '',
 });
 
 const submit = () => {
@@ -62,13 +62,12 @@ const submit = () => {
 
             <div class="mt-4">
                 <InputLabel for="role" value="Role" />
-                <select id="role" v-model="form.role" class="mt-1 block w-full form-input">
-                    <option value="doctor">Doctor</option>
+                <select v-model="form.role" class="input-field">
                     <option value="receptionist">Receptionist</option>
+                    <option value="doctor">Doctor</option>
                 </select>
-                <InputError class="mt-2" :message="form.errors.role" />
             </div>
-
+            
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
                 <TextInput

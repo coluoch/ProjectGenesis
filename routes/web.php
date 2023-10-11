@@ -3,6 +3,10 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\PatientController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +29,13 @@ Route::get('/', function () {
 });
 
 // Patients, Doctors, Appointments Resource Routes
-Route::resource('patients', 'PatientController');
-Route::resource('appointments', 'AppointmentController');
+Route::resource('patients', PatientController::class);
+Route::resource('appointments', AppointmentController::class);
 
 Route::group(['middleware' => ['auth']], function() {
     // Place your doctor-related routes here
     Route::middleware(['doctor'])->group(function () {
-        Route::get('/doctor/profile', [DoctorController::class, 'profile']);
+        Route::get('/doctor/profile', [DoctorController::class, 'profile'])->name('doctors.profile');
         Route::post('/doctor/profile', [DoctorController::class, 'updateProfile']);
         // ... other doctor-specific routes
     });
